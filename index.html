@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="From Frames to Sequences: Temporally Consistent Human-Centric Dense Prediction">
+    <meta name="keywords" content="Human-Centric Dense Prediction, Temporal Consistency, Video Sequences, ViT, Synthetic Data">
+    <meta name="author" content="Author Name, et al.">
+
+    <!-- Open Graph Protocol -->
+    <meta property="og:title" content="From Frames to Sequences: Temporally Consistent Human-Centric Dense Prediction">
+    <meta property="og:type" content="website">
+
+    <title>From Frames to Sequences: Temporally Consistent Human-Centric Dense Prediction</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>F2S</h1>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle menu" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <a href="#viz" class="nav-link">Video</a>
+                <a href="#abstract" class="nav-link">Abstract</a>
+                <a href="#downloads" class="nav-link">Downloads</a>
+                <a href="#citation" class="nav-link">Citation</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <h1 class="title">From Frames to Sequences: Temporally Consistent Human-Centric Dense Prediction</h1>
+            <div class="authors">
+                <div class="authors-list">
+                    <span class="author">
+                    <a href="https://xingy038.github.io/" target="_blank" rel="noopener">Xingyu Miao</a><sup>1</sup>
+                    </span>,
+                    <span class="author">
+                    <a href="https://jtdong.com/" target="_blank" rel="noopener">Junting Dong</a><sup>2,†, &#10024;</sup>
+                    </span>,
+                    <span class="author">
+                    <a href="https://gorgeous2002.github.io/" target="_blank" rel="noopener">Qin Zhao</a><sup>2,3</sup>
+                    </span>,
+                    <span class="author">
+                    <a href="https://yyvhang.github.io/" target="_blank" rel="noopener">Yuhang Yang</a><sup>4</sup>
+                    </span>,
+                    <span class="author">
+                    <a href="https://yisuanwang.github.io/" target="_blank" rel="noopener">Junhao Chen</a><sup>5</sup>
+                    </span>,
+                    <span class="author">
+                    <a href="https://www.durham.ac.uk/staff/yang-long/" target="_blank" rel="noopener">Yang Long</a><sup>1,†</sup>
+                    </span>
+                </div>
+                <div class="affiliations">
+                    <p class="affil"><sup>1</sup>Durham University, <sup>2</sup>Shanghai AI Laboratory, <sup>3</sup>Zhejiang University, <sup>4</sup>University of Science and Technology of China, <sup>5</sup>Tsinghua University</p>
+                    <p class="corresponding"><sup>†</sup>Corresponding Author, <sup>&#10024</sup>Project Leader</p>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <a href="https://github.com/xingy038/F2S" class="btn btn-primary" target="_blank">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+                        <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                    </svg>
+                    Paper
+                </a>
+                <a href="https://github.com/xingy038/F2S" class="btn btn-secondary">
+                <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+                    0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52
+                    -.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2
+                    -3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82
+                    .64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08
+                    2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01
+                    1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                GitHub
+                </a>
+                <a href="#citation" class="btn btn-secondary">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+                        <path d="M4.603 12.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.701 19.701 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.187-.012.395-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.065.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.716 5.716 0 0 1-.911-.95 11.642 11.642 0 0 0-1.997.406 11.311 11.311 0 0 1-1.021 1.51c-.29.35-.608.655-.926.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.27.27 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.647 12.647 0 0 1 1.01-.193 11.666 11.666 0 0 1-.51-.858 20.741 20.741 0 0 1-.5 1.05zm2.446.45c.15.162.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.881 3.881 0 0 0-.612-.053zM8.078 5.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"/>
+                    </svg>
+                    BibTeX
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Visualization Section -->
+    <section id="viz">
+        <div class="container">
+            <!-- Video Results -->
+            <div class="viz-section">
+                <h3 class="viz-section-title">Video</h3>
+<!--                <p class="viz-description">Point tracking results across diverse scenarios including navigation, human motion, animal movement, and object manipulation.</p>-->
+                <div class="viz-video-container">
+                    <video controls autoplay muted loop playsinline>
+                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Abstract -->
+    <section id="abstract">
+        <div class="container">
+            <h2 class="section-title">Abstract</h2>
+            <div class="abstract-content">
+                <p>In this work, we focus on the challenge of temporally consistent human-centric dense prediction across video sequences. Existing models achieve strong per-frame accuracy but often flicker under motion, occlusion, and lighting changes, and they rarely have paired human video supervision for multiple dense tasks.</p>
+
+                <p>We address this gap with a scalable synthetic data pipeline that generates photorealistic human frames and motion-aligned sequences with pixel-accurate depth, normals, and masks. Unlike prior static data synthetic pipelines, our pipeline provides both frame-level labels for spatial learning and sequence-level supervision for temporal learning.</p>
+
+                <p>Building on this, we train a unified ViT-based dense predictor that (i) injects an explicit human geometric prior via CSE embeddings and (ii) improves geometry-feature reliability with a lightweight channel reweighting module after feature fusion. Our two-stage training strategy, combining static pretraining with dynamic sequence supervision, enables the model first to acquire robust spatial representations and then refine temporal consistency across motion-aligned sequences.</p>
+
+                <p>Extensive experiments show that we achieve state-of-the-art performance on THuman2.1 and Hi4D and generalize effectively to in-the-wild videos.</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="subsection">
+                <h3 class="subsection-title">Pipeline</h3>
+                <div class="pipeline-content">
+                    <div class="pipeline-image">
+                        <img src="assets/images/pipeline.jpg" loading="lazy" alt="Model pipeline overview">
+                    </div>
+                        <div class="pipeline-step">
+                            <div class="step-content">
+                                <p>Given a sequence of RGB frames, our model extracts DINO features, global image features, and human geometric priors. These features are fused and re-weighted to generate enhanced representations for predicting temporally consistent depth, surface normals, and segmentation masks.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="subsection">
+                <h3 class="subsection-title">Data Pipeline</h3>
+                <div class="pipeline-content">
+                    <div class="pipeline-image">
+                        <img src="assets/images/data_pipeline.jpg" loading="lazy" alt="Synthetic data pipeline">
+                    </div>
+                        <div class="pipeline-step">
+                            <div class="step-content">
+                                <p>We first generate clothed human models using DAZ 3D, MakeHuman, and Character Creator. Texture augmentations are applied to increase appearance diversity. Each model is then animated by retargeting AMASS motion sequences. Finally, models are placed in Blender with randomized cameras for rendering RGB images together with depth, surface normals, and segmentation masks.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="subsection">
+                <h3 class="subsection-title">Quantitative Comparison</h3>
+                <h4 class="subsection-title">Image Results</h4>
+                <div class="pipeline-content">
+                    <div class="pipeline-image">
+                        <img src="assets/images/qualitative.jpg" loading="lazy" alt="Quantitative comparison results">
+                    </div>
+                        <div class="pipeline-step">
+                            <div class="step-content">
+                                <p>Quantitative comparison for depth estimation on THuman2.1 and Hi4D dataset. Note that the parameter size of Sapiens-0.3B is equivalent to that of large models of ViT-based methods.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RGB/Depth/Normal Comparison -->
+        <div class="container">
+            <div class="viz-section">
+                <h4 class="subsection-title">Video Results</h4>
+                <div class="viz-video-container">
+                    <div class="compare-carousel" data-compare-carousel>
+
+                        <div class="compare-item is-active" aria-hidden="false">
+
+                            <div class="triple-compare" data-triple data-split1="33" data-split2="66" data-min-gap="8">
+
+                                <video class="tc-base-video" autoplay muted loop playsinline>
+
+                                    <source src="assets/videos/breakdance.mp4" type="video/mp4">
+
+                                    <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    Your browser does not support the video tag.
+
+                                </video>
+
+                                <div class="tc-layer tc-depth">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/breakdance__depth.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+                                <div class="tc-layer tc-normal">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/breakdance__normal.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+
+                                <div class="tc-label tc-label-rgb">RGB</div>
+
+                                <div class="tc-label tc-label-depth">Depth</div>
+
+                                <div class="tc-label tc-label-normal">Normal</div>
+
+
+                                <div class="tc-divider tc-divider-1">
+
+                                    <div class="tc-handle" data-handle="1" role="slider" aria-label="RGB-Depth split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="33" tabindex="0"></div>
+
+                                </div>
+
+                                <div class="tc-divider tc-divider-2">
+
+                                    <div class="tc-handle" data-handle="2" role="slider" aria-label="Depth-Normal split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="66" tabindex="0"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="compare-item" aria-hidden="true">
+
+                            <div class="triple-compare" data-triple data-split1="33" data-split2="66" data-min-gap="8">
+
+                                <video class="tc-base-video" autoplay muted loop playsinline>
+
+                                    <source src="assets/videos/breakdance-flare.mp4" type="video/mp4">
+
+                                    <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    Your browser does not support the video tag.
+
+                                </video>
+
+                                <div class="tc-layer tc-depth">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/breakdance-flare__depth.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+                                <div class="tc-layer tc-normal">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/breakdance-flare__normal.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+
+                                <div class="tc-label tc-label-rgb">RGB</div>
+
+                                <div class="tc-label tc-label-depth">Depth</div>
+
+                                <div class="tc-label tc-label-normal">Normal</div>
+
+
+                                <div class="tc-divider tc-divider-1">
+
+                                    <div class="tc-handle" data-handle="1" role="slider" aria-label="RGB-Depth split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="33" tabindex="0"></div>
+
+                                </div>
+
+                                <div class="tc-divider tc-divider-2">
+
+                                    <div class="tc-handle" data-handle="2" role="slider" aria-label="Depth-Normal split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="66" tabindex="0"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="compare-item" aria-hidden="true">
+
+                            <div class="triple-compare" data-triple data-split1="33" data-split2="66" data-min-gap="8">
+
+                                <video class="tc-base-video" autoplay muted loop playsinline>
+
+                                    <source src="assets/videos/dance-jump.mp4" type="video/mp4">
+
+                                    <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    Your browser does not support the video tag.
+
+                                </video>
+
+                                <div class="tc-layer tc-depth">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/dance-jump__depth.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+                                <div class="tc-layer tc-normal">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/dance-jump__normal.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+
+                                <div class="tc-label tc-label-rgb">RGB</div>
+
+                                <div class="tc-label tc-label-depth">Depth</div>
+
+                                <div class="tc-label tc-label-normal">Normal</div>
+
+
+                                <div class="tc-divider tc-divider-1">
+
+                                    <div class="tc-handle" data-handle="1" role="slider" aria-label="RGB-Depth split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="33" tabindex="0"></div>
+
+                                </div>
+
+                                <div class="tc-divider tc-divider-2">
+
+                                    <div class="tc-handle" data-handle="2" role="slider" aria-label="Depth-Normal split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="66" tabindex="0"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="compare-item" aria-hidden="true">
+
+                            <div class="triple-compare" data-triple data-split1="33" data-split2="66" data-min-gap="8">
+
+                                <video class="tc-base-video" autoplay muted loop playsinline>
+
+                                    <source src="assets/videos/dance-twirl.mp4" type="video/mp4">
+
+                                    <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    Your browser does not support the video tag.
+
+                                </video>
+
+                                <div class="tc-layer tc-depth">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/dance-twirl__depth.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+                                <div class="tc-layer tc-normal">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/dance-twirl__normal.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+
+                                <div class="tc-label tc-label-rgb">RGB</div>
+
+                                <div class="tc-label tc-label-depth">Depth</div>
+
+                                <div class="tc-label tc-label-normal">Normal</div>
+
+
+                                <div class="tc-divider tc-divider-1">
+
+                                    <div class="tc-handle" data-handle="1" role="slider" aria-label="RGB-Depth split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="33" tabindex="0"></div>
+
+                                </div>
+
+                                <div class="tc-divider tc-divider-2">
+
+                                    <div class="tc-handle" data-handle="2" role="slider" aria-label="Depth-Normal split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="66" tabindex="0"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="compare-item" aria-hidden="true">
+
+                            <div class="triple-compare" data-triple data-split1="33" data-split2="66" data-min-gap="8">
+
+                                <video class="tc-base-video" autoplay muted loop playsinline>
+
+                                    <source src="assets/videos/hike.mp4" type="video/mp4">
+
+                                    <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    Your browser does not support the video tag.
+
+                                </video>
+
+                                <div class="tc-layer tc-depth">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/hike__depth.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+                                <div class="tc-layer tc-normal">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/hike__normal.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+
+                                <div class="tc-label tc-label-rgb">RGB</div>
+
+                                <div class="tc-label tc-label-depth">Depth</div>
+
+                                <div class="tc-label tc-label-normal">Normal</div>
+
+
+                                <div class="tc-divider tc-divider-1">
+
+                                    <div class="tc-handle" data-handle="1" role="slider" aria-label="RGB-Depth split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="33" tabindex="0"></div>
+
+                                </div>
+
+                                <div class="tc-divider tc-divider-2">
+
+                                    <div class="tc-handle" data-handle="2" role="slider" aria-label="Depth-Normal split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="66" tabindex="0"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="compare-item" aria-hidden="true">
+
+                            <div class="triple-compare" data-triple data-split1="33" data-split2="66" data-min-gap="8">
+
+                                <video class="tc-base-video" autoplay muted loop playsinline>
+
+                                    <source src="assets/videos/judo.mp4" type="video/mp4">
+
+                                    <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    Your browser does not support the video tag.
+
+                                </video>
+
+                                <div class="tc-layer tc-depth">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/judo__depth.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+                                <div class="tc-layer tc-normal">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/judo__normal.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+
+                                <div class="tc-label tc-label-rgb">RGB</div>
+
+                                <div class="tc-label tc-label-depth">Depth</div>
+
+                                <div class="tc-label tc-label-normal">Normal</div>
+
+
+                                <div class="tc-divider tc-divider-1">
+
+                                    <div class="tc-handle" data-handle="1" role="slider" aria-label="RGB-Depth split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="33" tabindex="0"></div>
+
+                                </div>
+
+                                <div class="tc-divider tc-divider-2">
+
+                                    <div class="tc-handle" data-handle="2" role="slider" aria-label="Depth-Normal split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="66" tabindex="0"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="compare-item" aria-hidden="true">
+
+                            <div class="triple-compare" data-triple data-split1="33" data-split2="66" data-min-gap="8">
+
+                                <video class="tc-base-video" autoplay muted loop playsinline>
+
+                                    <source src="assets/videos/kid-football.mp4" type="video/mp4">
+
+                                    <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    Your browser does not support the video tag.
+
+                                </video>
+
+                                <div class="tc-layer tc-depth">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/kid-football__depth.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+                                <div class="tc-layer tc-normal">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/kid-football__normal.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+
+                                <div class="tc-label tc-label-rgb">RGB</div>
+
+                                <div class="tc-label tc-label-depth">Depth</div>
+
+                                <div class="tc-label tc-label-normal">Normal</div>
+
+
+                                <div class="tc-divider tc-divider-1">
+
+                                    <div class="tc-handle" data-handle="1" role="slider" aria-label="RGB-Depth split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="33" tabindex="0"></div>
+
+                                </div>
+
+                                <div class="tc-divider tc-divider-2">
+
+                                    <div class="tc-handle" data-handle="2" role="slider" aria-label="Depth-Normal split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="66" tabindex="0"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="compare-item" aria-hidden="true">
+
+                            <div class="triple-compare" data-triple data-split1="33" data-split2="66" data-min-gap="8">
+
+                                <video class="tc-base-video" autoplay muted loop playsinline>
+
+                                    <source src="assets/videos/kite-surf.mp4" type="video/mp4">
+
+                                    <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    Your browser does not support the video tag.
+
+                                </video>
+
+                                <div class="tc-layer tc-depth">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/kite-surf__depth.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+                                <div class="tc-layer tc-normal">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/kite-surf__normal.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+
+                                <div class="tc-label tc-label-rgb">RGB</div>
+
+                                <div class="tc-label tc-label-depth">Depth</div>
+
+                                <div class="tc-label tc-label-normal">Normal</div>
+
+
+                                <div class="tc-divider tc-divider-1">
+
+                                    <div class="tc-handle" data-handle="1" role="slider" aria-label="RGB-Depth split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="33" tabindex="0"></div>
+
+                                </div>
+
+                                <div class="tc-divider tc-divider-2">
+
+                                    <div class="tc-handle" data-handle="2" role="slider" aria-label="Depth-Normal split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="66" tabindex="0"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="compare-item" aria-hidden="true">
+
+                            <div class="triple-compare" data-triple data-split1="33" data-split2="66" data-min-gap="8">
+
+                                <video class="tc-base-video" autoplay muted loop playsinline>
+
+                                    <source src="assets/videos/kite-walk.mp4" type="video/mp4">
+
+                                    <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    Your browser does not support the video tag.
+
+                                </video>
+
+                                <div class="tc-layer tc-depth">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/kite-walk__depth.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+                                <div class="tc-layer tc-normal">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/kite-walk__normal.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+
+                                <div class="tc-label tc-label-rgb">RGB</div>
+
+                                <div class="tc-label tc-label-depth">Depth</div>
+
+                                <div class="tc-label tc-label-normal">Normal</div>
+
+
+                                <div class="tc-divider tc-divider-1">
+
+                                    <div class="tc-handle" data-handle="1" role="slider" aria-label="RGB-Depth split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="33" tabindex="0"></div>
+
+                                </div>
+
+                                <div class="tc-divider tc-divider-2">
+
+                                    <div class="tc-handle" data-handle="2" role="slider" aria-label="Depth-Normal split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="66" tabindex="0"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="compare-item" aria-hidden="true">
+
+                            <div class="triple-compare" data-triple data-split1="33" data-split2="66" data-min-gap="8">
+
+                                <video class="tc-base-video" autoplay muted loop playsinline>
+
+                                    <source src="assets/videos/lab-coat.mp4" type="video/mp4">
+
+                                    <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    Your browser does not support the video tag.
+
+                                </video>
+
+                                <div class="tc-layer tc-depth">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/lab-coat__depth.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+                                <div class="tc-layer tc-normal">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/lab-coat__normal.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+
+                                <div class="tc-label tc-label-rgb">RGB</div>
+
+                                <div class="tc-label tc-label-depth">Depth</div>
+
+                                <div class="tc-label tc-label-normal">Normal</div>
+
+
+                                <div class="tc-divider tc-divider-1">
+
+                                    <div class="tc-handle" data-handle="1" role="slider" aria-label="RGB-Depth split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="33" tabindex="0"></div>
+
+                                </div>
+
+                                <div class="tc-divider tc-divider-2">
+
+                                    <div class="tc-handle" data-handle="2" role="slider" aria-label="Depth-Normal split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="66" tabindex="0"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="compare-item" aria-hidden="true">
+
+                            <div class="triple-compare" data-triple data-split1="33" data-split2="66" data-min-gap="8">
+
+                                <video class="tc-base-video" autoplay muted loop playsinline>
+
+                                    <source src="assets/videos/longboard.mp4" type="video/mp4">
+
+                                    <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    Your browser does not support the video tag.
+
+                                </video>
+
+                                <div class="tc-layer tc-depth">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/longboard__depth.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+                                <div class="tc-layer tc-normal">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/longboard__normal.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+
+                                <div class="tc-label tc-label-rgb">RGB</div>
+
+                                <div class="tc-label tc-label-depth">Depth</div>
+
+                                <div class="tc-label tc-label-normal">Normal</div>
+
+
+                                <div class="tc-divider tc-divider-1">
+
+                                    <div class="tc-handle" data-handle="1" role="slider" aria-label="RGB-Depth split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="33" tabindex="0"></div>
+
+                                </div>
+
+                                <div class="tc-divider tc-divider-2">
+
+                                    <div class="tc-handle" data-handle="2" role="slider" aria-label="Depth-Normal split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="66" tabindex="0"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="compare-item" aria-hidden="true">
+
+                            <div class="triple-compare" data-triple data-split1="33" data-split2="66" data-min-gap="8">
+
+                                <video class="tc-base-video" autoplay muted loop playsinline>
+
+                                    <source src="assets/videos/lucia.mp4" type="video/mp4">
+
+                                    <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    Your browser does not support the video tag.
+
+                                </video>
+
+                                <div class="tc-layer tc-depth">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/lucia__depth.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+                                <div class="tc-layer tc-normal">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/lucia__normal.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+
+                                <div class="tc-label tc-label-rgb">RGB</div>
+
+                                <div class="tc-label tc-label-depth">Depth</div>
+
+                                <div class="tc-label tc-label-normal">Normal</div>
+
+
+                                <div class="tc-divider tc-divider-1">
+
+                                    <div class="tc-handle" data-handle="1" role="slider" aria-label="RGB-Depth split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="33" tabindex="0"></div>
+
+                                </div>
+
+                                <div class="tc-divider tc-divider-2">
+
+                                    <div class="tc-handle" data-handle="2" role="slider" aria-label="Depth-Normal split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="66" tabindex="0"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="compare-item" aria-hidden="true">
+
+                            <div class="triple-compare" data-triple data-split1="33" data-split2="66" data-min-gap="8">
+
+                                <video class="tc-base-video" autoplay muted loop playsinline>
+
+                                    <source src="assets/videos/parkour.mp4" type="video/mp4">
+
+                                    <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    Your browser does not support the video tag.
+
+                                </video>
+
+                                <div class="tc-layer tc-depth">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/parkour__depth.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+                                <div class="tc-layer tc-normal">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/parkour__normal.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+
+                                <div class="tc-label tc-label-rgb">RGB</div>
+
+                                <div class="tc-label tc-label-depth">Depth</div>
+
+                                <div class="tc-label tc-label-normal">Normal</div>
+
+
+                                <div class="tc-divider tc-divider-1">
+
+                                    <div class="tc-handle" data-handle="1" role="slider" aria-label="RGB-Depth split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="33" tabindex="0"></div>
+
+                                </div>
+
+                                <div class="tc-divider tc-divider-2">
+
+                                    <div class="tc-handle" data-handle="2" role="slider" aria-label="Depth-Normal split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="66" tabindex="0"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="compare-item" aria-hidden="true">
+
+                            <div class="triple-compare" data-triple data-split1="33" data-split2="66" data-min-gap="8">
+
+                                <video class="tc-base-video" autoplay muted loop playsinline>
+
+                                    <source src="assets/videos/snowboard.mp4" type="video/mp4">
+
+                                    <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    Your browser does not support the video tag.
+
+                                </video>
+
+                                <div class="tc-layer tc-depth">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/snowboard__depth.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+                                <div class="tc-layer tc-normal">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/snowboard__normal.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+
+                                <div class="tc-label tc-label-rgb">RGB</div>
+
+                                <div class="tc-label tc-label-depth">Depth</div>
+
+                                <div class="tc-label tc-label-normal">Normal</div>
+
+
+                                <div class="tc-divider tc-divider-1">
+
+                                    <div class="tc-handle" data-handle="1" role="slider" aria-label="RGB-Depth split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="33" tabindex="0"></div>
+
+                                </div>
+
+                                <div class="tc-divider tc-divider-2">
+
+                                    <div class="tc-handle" data-handle="2" role="slider" aria-label="Depth-Normal split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="66" tabindex="0"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="compare-item" aria-hidden="true">
+
+                            <div class="triple-compare" data-triple data-split1="33" data-split2="66" data-min-gap="8">
+
+                                <video class="tc-base-video" autoplay muted loop playsinline>
+
+                                    <source src="assets/videos/tennis.mp4" type="video/mp4">
+
+                                    <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    Your browser does not support the video tag.
+
+                                </video>
+
+                                <div class="tc-layer tc-depth">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/tennis__depth.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+                                <div class="tc-layer tc-normal">
+
+                                    <video class="tc-overlay-video" autoplay muted loop playsinline>
+
+                                        <source src="assets/videos/tennis__normal.mp4" type="video/mp4">
+
+                                        <source src="assets/videos/visualization.mp4" type="video/mp4">
+
+                                    </video>
+
+                                </div>
+
+
+                                <div class="tc-label tc-label-rgb">RGB</div>
+
+                                <div class="tc-label tc-label-depth">Depth</div>
+
+                                <div class="tc-label tc-label-normal">Normal</div>
+
+
+                                <div class="tc-divider tc-divider-1">
+
+                                    <div class="tc-handle" data-handle="1" role="slider" aria-label="RGB-Depth split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="33" tabindex="0"></div>
+
+                                </div>
+
+                                <div class="tc-divider tc-divider-2">
+
+                                    <div class="tc-handle" data-handle="2" role="slider" aria-label="Depth-Normal split" aria-valuemin="5" aria-valuemax="95" aria-valuenow="66" tabindex="0"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="compare-dots" data-compare-dots></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Downloads -->
+    <section id="downloads">
+        <div class="container">
+            <h2 class="section-title">Downloads & Resources</h2>
+            <div class="downloads-grid">
+                <div class="download-card">
+                    <div class="download-icon">📄</div>
+                    <h3>Datasets</h3>
+                    <p>Training datasets for our methods</p>
+                    <a href="Tracking_Dataset.pdf" class="btn btn-primary" target="_blank">Coming Soon</a>
+                </div>
+                <div class="download-card">
+                    <div class="download-icon">💻</div>
+                    <h3>Code</h3>
+                    <p>Training scripts for our methods</p>
+                    <a href="#" class="btn btn-secondary disabled" target="_blank">Coming Soon</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Citation -->
+    <section id="citation">
+        <div class="container">
+            <h2 class="section-title">Citation</h2>
+            <div class="citation-box">
+                <pre><code>@inproceedings{F2S,
+  title   = {From Frames to Sequences: Temporally Consistent Human-Centric Dense Prediction},
+  author  = {Miao, Xingyu and Dong, Junting and Zhao, Qin and Yang, Yuhang and Chen, Junhao and Long, Yang},
+  year    = {2026}
+}
+</code></pre>
+                <button class="copy-btn" onclick="copyBibTeX()">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                    </svg>
+                    Copy
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 TrajVG. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>
