@@ -191,7 +191,7 @@ python train_video.py \
 | --- | --- |
 | `Image vitb` | [model](https://drive.google.com/file/d/1iTBx8V_GqSuB_-xGampM0T-tYI2dOQvm/view?usp=sharing) |
 | `Image vitl` | [model](https://drive.google.com/file/d/1eSrid0FZ5SqEux4_GQS6v8T14ev6lPuI/view?usp=sharing) |
-| `Video vitb` | [model](https://drive.google.com/file/d/1iTBx8V_GqSuB_-xGampM0T-tYI2dOQvm/view?usp=sharing) |
+| `Video vitb` | [model](https://drive.google.com/file/d/1E6hjzff2jcGmkmT91GBECDzCsRC9SfVf/view?usp=sharing) |
 | `Video vitl` | [model](https://drive.google.com/file/d/1vFm5JKtpO2AZYS4n0RkXByz7bfKApe8J/view?usp=sharing) |
 
 ### Image Inference
